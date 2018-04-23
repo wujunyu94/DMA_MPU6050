@@ -151,7 +151,16 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 } 
 
 /* USER CODE BEGIN 1 */
-
+void Uart_Virtual_Oscilloscope(uint8_t *wareaddr, uint32_t waresize)
+{
+	#define CMD_WARE     3
+	
+    uint8_t cmdf[2] = {CMD_WARE, ~CMD_WARE};   
+    uint8_t cmdr[2] = {~CMD_WARE, CMD_WARE};   
+		HAL_UART_Transmit(&huart1,(uint8_t *)cmdf,sizeof(cmdf),0xffff);
+		HAL_UART_Transmit(&huart1,(uint8_t *)wareaddr,waresize,0xffff);
+		HAL_UART_Transmit(&huart1,(uint8_t *)cmdr,sizeof(cmdr),0xffff);
+}
 /* USER CODE END 1 */
 
 /**

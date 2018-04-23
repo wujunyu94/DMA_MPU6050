@@ -251,6 +251,14 @@ void TIM4_IRQHandler(void)
   /* USER CODE BEGIN TIM4_IRQn 1 */
 	MPU6050_SequenceRead(MPU6050_Buffer);
 	MPU6050_Compose();
+	int16_t temp[6];
+	temp[0]=acc.x;
+	temp[1]=acc.y;
+	temp[2]=acc.z;
+	temp[3]=gyro.x;
+	temp[4]=gyro.y;
+	temp[5]=gyro.z;
+	Uart_Virtual_Oscilloscope(temp,sizeof(temp));
   /* USER CODE END TIM4_IRQn 1 */
 }
 
